@@ -1,5 +1,8 @@
 orca = require "orca"
-behaviour = require "orca.behaviour"
+import Behaviour from require "orca.core"
+
+Behaviour.getFrame = () => @getRoot!
+Behaviour.navigate = (url) => @getFrame!\navigate url
 
 return {
 	Application: require "routing.Application"
