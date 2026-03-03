@@ -95,8 +95,10 @@ class Application extends ui.Screen
 	__styles: {}
 
 	stylesheet: (src) =>
-		import parse from require "orca.parsers.css"
 		import read_file from require "orca.filesystem"
 		into = get_target_route_group @
-		style = if (type src) ~= 'string' then src else parse read_file src
-		table.insert(into.__styles, style)
+		ok, style = pcall require, src
+		if ok then
+			table.insert(into.__styles, style)
+		else
+			print(style) -- error message
